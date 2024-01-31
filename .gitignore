@@ -1,0 +1,4 @@
+sound_tic80_.py
+.local/*
+__pycache__/*
+*.lua
