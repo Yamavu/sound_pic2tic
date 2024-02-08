@@ -1,2 +1,2 @@
-bitstring
+bitstring>=4.1.4
 pytest

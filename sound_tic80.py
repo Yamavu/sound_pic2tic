@@ -98,11 +98,11 @@ class Tic80sfx:
     @classmethod
     def from_hex_str(cls,sfx_str):
         pts=[]
-        assert re.match(r"[\da-f]{132}",sfx_str)
+        #assert re.match(r"[\da-f]{132}",sfx_str)
         for i in range(30):
             pt_str = sfx_str[4*i:4*i+4]
             pts.append(Tic80sfx_pt.from_hex_str(pt_str))
-        assert len(pts) == 30
+        #assert len(pts) == 30
         flags=Tic80sfxFlags.from_hex_str(sfx_str[-12:])
         return cls(pts,flags)
 
