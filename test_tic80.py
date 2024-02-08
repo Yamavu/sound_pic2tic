@@ -1,13 +1,13 @@
 import pytest
 #from pathlib import Path
 #from argparse import Namespace
-from sound_tic80 import Tic80sfx,Tic80sfxFlags
+from sound_tic80 import Tic80sfx, Tic80sfx_pt,Tic80sfxFlags
 
 
 
 @pytest.fixture
 def sfx() -> str:
-    _sfx =   "0400" + "0401" + "0402" + "1403" + "1404" + "2405" + "2406" + "3407" + "4408" + "6400" + \
+    _sfx =  "0400" + "0401" + "0402" + "1403" + "1404" + "2405" + "2406" + "3407" + "4408" + "6400" + \
             "7400" + "8400" + "a400" + "b400" + "c400" + "d400" + "e400" + "e400" + "f400" + "f400" + \
             "f400" + "f400" + "f400" + "f400" + "f400" + "f400" + "f400" + "f400" + "f400" + "f400" + \
             "4020" + "00" + "62" + "3f" + "0f"
@@ -42,8 +42,31 @@ def test_sfxflags(sfx):
     print(f"{data[0]:08b}")
     hx = flags.to_hex_str()
     assert len(hx) == 12
-    print(flags.diff(Tic80sfxFlags.from_hex_str(hexrepr)))
     assert hx == hexrepr
+def test_sfxflags_2():
+    hex_str = "020312345678"
+    print(hex_str)
+    flags = Tic80sfxFlags.from_hex_str(hex_str)
+    assert flags.speed == 4
+    assert flags.reverse == False
+    print(flags)
+    print(flags.to_hex_str())
+    assert hex_str == flags.to_hex_str()
+def text_sfx(sfx):
+    #s = "000000110022103310442055206630774088609070a080b0a0c0b0d0c0e0d0f0e000e000e000f000f000f000f000f000f000f000f000f000f000f000030012345678"
+    _sfx = Tic80sfx.from_hex_str(sfx)
+    assert len(_sfx.pts) == 30
+    
+    print(_sfx)
+
+def text_sfx_pt():
+    s = "f001"
+    _sfx = Tic80sfx_pt.from_hex_str(s)
+    assert _sfx.pitch == 1
+    assert _sfx.volume == 0
+    s_ = _sfx.to_hex_str()
+    assert s == s_
+
 """def test_flags_sp4():
     _sfxflags = "304012345678"# spd: 4
     flags = Tic80sfxFlags.from_hex_str(_sfxflags)
